@@ -16,5 +16,6 @@ def introduce(request):
 
 def burger_list(request):
     burgers = Burger.objects.all()
-    print("햄버거 전체 목록")
-    return render(request, 'burger_list.html')
+    print("햄버거 전체 목록", burgers)
+    context = {'burgers': burgers}
+    return render(request, 'burger_list.html',context)

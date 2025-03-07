@@ -6,5 +6,19 @@
 </head>
 <body>
     <h1>햄버거 목록</h1>
+    <table>
+        <tr>
+            <th>이름</th>
+            <th>가격</th>
+            <th>칼로리</th>
+        </tr>
+        {% for burger in burgers %}
+            <tr>
+                <td>{{ burger.name }}</td>
+                <td>{{ burger.price }}</td>
+                <td>{{ burger.calories }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
