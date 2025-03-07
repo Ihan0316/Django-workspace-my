@@ -8,14 +8,14 @@
     <h1>햄버거 목록</h1>
     <div>{{ burgers }}</div>
 
-<h1>햄버거 목록 속성</h1>
-{% for burger in burgers %}
+    <h1>햄버거 목록 속성</h1>
+    {% for burger in burgers %}
 
-    <div> 햄버거 이름 : {{ burger.name }} </div>
-    <div> 햄버거 가격 : {{ burger.price }} </div>
-    <div> 햄버거 칼로리 : {{ burger.calories }} </div>
+        <div> 햄버거 이름 : {{ burger.name }} </div>
+        <div> 햄버거 가격 : {{ burger.price }} </div>
+        <div> 햄버거 칼로리 : {{ burger.calories }} </div>
 
-{% endfor %}
+    {% endfor %}
 
 </body>
 </html>
