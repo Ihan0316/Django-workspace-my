@@ -14,20 +14,21 @@ python manage.py shell
 from burgers.models import Burger
 Burger.objects.all()
 
-3 조건에 맞는 요소 가져오기
+3 조건에 맞는 요소 가져오기(하나만 가져오기)
 from burgers.models import Burger
-Burger.objects.get(name='더블와퍼')
-burgers = Burger.objects.get(name='더블와퍼')
+Burger.objects.get(name="더블와퍼")
+burger = Burger.objects.get(name="더블와퍼")
 
-burgers.id
-burgers.name
-burgers.price
-burgers.calories
+각 속성의 값 확인.
+burger.id
+burger.name
+burger.price
+burger.calories
 
 4 특정 조건 여러 객체를 가져오기.
 
 from burgers.models import Burger
-burgers = Burger.objects.filter(name__endswith='와퍼')
+burgers = Burger.objects.filter(name__endswith="와퍼")
 burgers
 type(burgers)
 
@@ -35,10 +36,60 @@ burgers[0]
 burgers[1]
 
 for burger in burgers:
-    print(burger.id, burger.name, burger.price, burger.calories)
+	print(burger.id, burger.name, burger.price, burger.calories)
 
 
+5.
+프로젝이름/views.py
 
+def burger_list(request):
+    burgers = Burger.objects.all()
+    print("햄버거 전체 목록: ", burgers)
+    return render(request, "burger_list.html")
+
+6.
+templates 폴더 파일 만들기.
+burger_list.html
+
+내용은 간단히.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>burger_list</title>
+</head>
+<body>
+<h1>햄버거 목록</h1>
+</body>
+</html>
+
+7.
+프로젝이름/urls.py
+라우팅
+urlpatterns = [
+  ...
+  path("list/",burger_list)
+  ...
+
+8.
+화면에 데이터 전달.
+def burger_list(request):
+    burgers = Burger.objects.all()
+    print("햄버거 전체 목록: ", burgers)
+    # 화면에 데이터 탑재하기.
+    context = {
+        "burgers": burgers
+    }
+    # 화면에 데이터 전달하기.
+    return render(request, "burger_list.html", context)
+
+
+9.
+화면 구성 전에,
+화면에 데이터 유효성 체크, 데이터를 잘 가져 왔는지 유무 확인.
+burger_list.html
+<h1>햄버거 목록</h1>
+<div>{{ burgers  }}</div>
 
 
 
