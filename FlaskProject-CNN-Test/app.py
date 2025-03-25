@@ -27,7 +27,7 @@ import eventlet.wsgi
 app = Flask(__name__)
 CORS(app)  # CORS 허용
 
-device = torch.device("mps" if torch.mps.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # ✅ YOLO 모델 로드
