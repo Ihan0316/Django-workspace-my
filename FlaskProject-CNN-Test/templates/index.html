@@ -35,7 +35,7 @@
 
     <!-- 🔹 업로드된 파일 미리보기 -->
     <div class="preview-container">
-        <img id="preview-image" src="" style="display: none; max-width: 300px; margin-top: 10px; border: 1px solid #ddd;" alt="이미지 없음">
+        <img id="preview-image" src="" style="display: none; max-width: 300px; margin-top: 10px; border: 1px solid #ddd;">
     </div>
 
     <script>
@@ -111,11 +111,25 @@
 
                     if (modelType === "yolo") {
                         console.log("(modelTyp : yolo...")
-                        console.log("(modelTyp : response.url...",response.url)
-                        // YOLO 모델은 처리된 이미지 URL을 반환
-                        result.innerHTML = `<p>처리된 이미지 결과:</p><a href="${response.url}" target="_blank">결과 보기</a>`;
-                        previewImage.src = response.url;
-                        previewImage.style.display = "block";
+                        console.log("(modelTyp : response.",response)
+                        console.log("(modelTyp : response.file_url...",response.file_url)
+                          if (response.file_type === "image") {
+        // 이미지인 경우: 미리보기 표시
+        result.innerHTML = `<p>처리된 이미지 결과:</p><a href="${response.file_url}" target="_blank">결과 보기</a>`;
+        previewImage.src = response.file_url;
+        previewImage.style.display = "block";
+    } else if (response.file_type === "video") {
+        // 비디오인 경우: 다운로드 링크 표시
+        result.innerHTML = `
+            <p>처리된 비디오 결과:</p>
+            <a href="${response.download_url}" download>비디오 다운로드</a>
+        `;
+        previewImage.style.display = "none";
+    } else {
+        // 지원하지 않는 파일 형식
+        result.innerHTML = `<p>지원하지 않는 파일 형식입니다.</p>`;
+        previewImage.style.display = "none";
+    }
                     } else {
                         // 이미지 분류 모델 결과 표시
                         result.innerHTML = `
